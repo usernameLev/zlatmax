@@ -1,0 +1,127 @@
+@use 'sass:math';
+
+[class*='__container-big'] {
+  max-width: rem(1920);
+  margin: 0 auto;
+}
+
+[class*='__container'] {
+  max-width: rem(1620);
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+// Адаптивный размер
+// padding: calc(10px + (30 - 10) * (100vw - 320px) / (1620 - 320));
+@mixin adaptiveValue($property, $maxSize, $minSize, $type) {
+  $addSize: $maxSize - $minSize;
+
+  @if $type == 1 {
+    // Только, если меньше контейнера
+    #{$property}: $maxSize + px;
+
+    @media (max-width: #{$maxWidthContainer + px}) {
+      #{$property}: calc(
+        #{$minSize + px} + #{$maxSize} *
+          ((100vw - 320px) / #{$maxWidthContainer - 320})
+      );
+    }
+  } @else if $type == 2 {
+    // Только, если больше контейнера
+    #{$property}: $maxSize + px;
+
+    @media (min-width: #{$maxWidthContainer + px}) {
+      #{$property}: calc(
+        #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+      );
+    }
+  } @else {
+    // Всегда
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+    );
+  }
+}
+
+// Адаптивное свойство (clamp)
+@mixin adaptiveValue2(
+  $property,
+  $startSize,
+  $minSize,
+  $widthFrom: $containerWidth,
+  $widthTo: $minWidth,
+  $keepSize: 0
+) {
+  @if ($startSize==0) {
+    $startSize: 0.000001;
+  }
+  @if ($minSize==0) {
+    $minSize: 0.000001;
+  }
+
+  // Для calc();
+  $addSize: math.div($startSize - $minSize, 16);
+
+  @if ($widthFrom == $containerWidth and $maxWidthContainer == 0) {
+    $widthFrom: $maxWidth;
+  }
+
+  // Брейк-поинты в EM
+  $widthFromMedia: em($widthFrom);
+  $widthToMedia: em($widthTo);
+
+  // Формула плавающего значения
+  $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+  $yIntersection: -$widthTo * $slope + $minSize;
+  @if ($yIntersection==0) {
+    $yIntersection: 0.000001;
+  }
+  $flyValue: #{rem($yIntersection)}' + ' #{$slope * 100}vw;
+
+  // Получение значения свойства
+  $propertyValue: #{'clamp(' rem($minSize) ',' $flyValue ',' rem($startSize) ')'};
+  // Если отрицательные значения
+  @if ($minSize > $startSize) {
+    $propertyValue: #{'clamp('
+      rem($startSize)
+      ','
+      $flyValue
+      ','
+      rem($minSize)
+      ')'};
+  }
+
+  // Если поддерживается clamp();
+  @supports (#{$property}: $propertyValue) {
+    #{$property}: $propertyValue;
+  }
+  // Если не поддерживается clamp();
+  @supports not (#{$property}: $propertyValue) {
+    #{$property}: calc(
+      #{rem($minSize)} + #{$addSize} * (100vw - #{rem($widthTo)}) / #{math.div(
+          $widthFrom,
+          16
+        ) - math.div($widthTo, 16)}
+    );
+  }
+
+  // Устанавливаем значения по умолчанию
+  @if $widthFrom !=
+    $containerWidth and
+    $widthFrom !=
+    $maxWidth and
+    $keepSize !=
+    1 and
+    $keepSize !=
+    2
+  {
+    @media (min-width: $widthFromMedia) {
+      #{$property}: inherit;
+    }
+  }
+  @if $widthTo != $minWidth and $keepSize != 1 and $keepSize != 3 {
+    @media (max-width: $widthToMedia) {
+      #{$property}: inherit;
+    }
+  }
+}

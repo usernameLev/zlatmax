@@ -1,0 +1,10 @@
+//= components/swiper.js
+//= components/script2.js
+//= components/script3.js
+//= components/popup.js
+//= components/dynamic_adapt.js
+//= components/burger.js
+//= components/forms.js
+//= components/parallax-mouse.js
+//= components/scroll.js
+//= components/spollers.js
