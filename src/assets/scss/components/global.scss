@@ -10,3 +10,79 @@ body {
 button {
   background-color: transparent;
 }
+
+.button {
+  display: inline-block;
+  font-size: rem(20);
+  line-height: math.div(32, 20);
+  font-weight: $secondaryFontWeight;
+  color: #ffffff;
+  background: $thirdColor;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: rem(8) rem(52);
+  transition: box-shadow 0.3s ease 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      box-shadow: 0px 4px 25px rgba(232, 170, 49, 0.63);
+    }
+  }
+}
+
+.dots {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 auto;
+  // transform: translate(0, 10%);
+
+  .swiper-pagination-bullet {
+    position: relative;
+    width: rem(18);
+    height: rem(30);
+    background-color: transparent;
+    opacity: 1;
+    margin: 0 rem(7.5);
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: rem(2);
+      background-color: #898989;
+      transform: translate(0, -50%);
+      top: 50%;
+      transition: all 0.3s ease 0s;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: rem(10);
+      height: rem(10);
+      background-color: $thirdColor;
+      border-radius: 50%;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      opacity: 0;
+    }
+
+    &-active {
+      width: rem(30);
+
+      &::after {
+        background-color: $thirdColor;
+      }
+
+      &::before {
+        opacity: 1;
+        transition: left 3s linear 0s;
+        left: rem(30);
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+@use 'sass:math';
+
+.page {
+  // .page__catalog-cards
+  &__catalog-cards {
+  }
+}
+
+.catalog-cards {
+  @include adaptiveValue('padding-top', 100, 40, 1);
+  @include adaptiveValue('padding-bottom', 70, 40, 1);
+
+  // .catalog-cards__container
+  &__container {
+    display: grid;
+    gap: rem(30);
+
+    @media (min-width: $mobileSmall) {
+      grid-template-columns: repeat(auto-fit, minmax(rem(400), 1fr));
+    }
+  }
+  // .catalog-cards__item
+  &__item {
+  }
+}
+
+.item-catalog-cards {
+  position: relative;
+  min-height: rem(290);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  // .item-catalog-cards__body
+  &__body {
+    position: relative;
+    z-index: 2;
+    @include adaptiveValue('padding', 30, 20, 1);
+  }
+
+  // .item-catalog-cards__title
+  &__title {
+    &:not(:last-child) {
+      margin-bottom: math.div(30, 24) + em;
+    }
+  }
+
+  // .item-catalog-cards__link-title
+  &__link-title {
+    display: inline-block;
+    font-size: rem(24);
+    line-height: math.div(34, 24);
+    font-weight: $secondaryFontWeight;
+
+    &::after {
+      content: '';
+      display: block;
+      width: rem(70);
+      height: rem(2);
+      background-color: $thirdColor;
+      margin-top: rem(15);
+      transition: width 0.8s ease 0s;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // .item-catalog-cards__list
+  &__list {
+  }
+
+  // .item-catalog-cards__item
+  &__item {
+    position: relative;
+    padding-left: rem(20);
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: rem(6);
+      height: rem(6);
+      border-radius: 50%;
+      background-color: $thirdColor;
+      top: 50%;
+      left: 0;
+      transform: translate(0 -50%);
+    }
+
+    &:not(:last-child) {
+      margin-bottom: rem(10);
+    }
+  }
+
+  // .item-catalog-cards__link
+  &__link {
+    font-size: rem(18);
+    line-height: math.div(24, 18);
+
+    @media (any-hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // .item-catalog-cards__image
+  &__image {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    text-align: right;
+    transform: translate(0, 8%);
+
+    img {
+      max-width: 100%;
+    }
+
+    @media (min-width: $mobileSmall) {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      right: 0;
+    }
+
+    @media (max-width: $mobileSmall) {
+      justify-content: center;
+    }
+  }
+}

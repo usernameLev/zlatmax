@@ -1,0 +1,118 @@
+@use 'sass:math';
+
+.products-new {
+  position: relative;
+  background: url('../img/main/products-new/products-new-bg.jpg') bottom / cover
+    no-repeat;
+  padding-top: rem(45);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: prc(1030, 1920);
+    height: rem(45);
+    background-color: #fff;
+    top: 0;
+    right: 0;
+  }
+
+  // .products-new__inner
+  &__inner {
+    @include adaptiveValue('padding-top', 55, 20, 1);
+    @include adaptiveValue('padding-bottom', 55, 20, 1);
+  }
+
+  // .products-new__container
+  &__container {
+    display: grid;
+    row-gap: rem(40);
+
+    @media (min-width: $tablet) {
+      grid-template-columns: rem(400) 1fr;
+      align-items: start;
+    }
+  }
+  // .products-new__body
+  &__body {
+    @include adaptiveValue2('padding-right', 70, 20, 1630, 992, 1);
+  }
+
+  // .products-new__section
+  &__section {
+    position: relative;
+    z-index: 2;
+  }
+
+  // .products-new__title
+  &__title {
+    font-size: rem(30);
+    line-height: math.div(46, 30);
+    font-weight: $thirdFontWeight;
+    color: #ffffff;
+
+    &:not(:last-child) {
+      @include adaptiveValue('margin-bottom', 30, 20, 1);
+    }
+  }
+  // .products-new__text
+  &__text {
+    font-size: rem(18);
+    line-height: math.div(27, 18);
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.7);
+
+    &:not(:last-child) {
+      @include adaptiveValue('margin-bottom', 60, 20, 1);
+    }
+  }
+  // .products-new__link
+  &__link {
+  }
+
+  // .products-new__content
+  &__content {
+    min-width: 0;
+
+    @media (min-width: $tablet) {
+      padding-top: rem(37);
+    }
+  }
+
+  // .products-new__slider
+  &__slider {
+  }
+
+  // .products-new__swiper
+  &__swiper {
+    &:not(:last-child) {
+      @include adaptiveValue('margin-bottom', 50, 20, 1);
+    }
+  }
+
+  // .products-new__slide
+  &__slide {
+  }
+}
+
+.link-arrow {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: rem(20);
+  font-weight: $thirdFontWeight;
+  color: $thirdColor;
+
+  &::before {
+    font-size: rem(8);
+    transform: rotate(-90deg);
+    margin-left: math.div(20, 20) + em;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -63,6 +63,12 @@ body {
   }
 }
 
+[class*='-ibg_contain'] {
+  img {
+    object-fit: contain;
+  }
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -84,7 +90,15 @@ body {
 
 @import 'components/popup';
 @import 'components/burger';
+@import 'components/rating';
 
 @import 'components/header';
 @import 'components/page';
+@import 'components/main-block';
+@import 'components/catalog-cards';
+
+@import 'components/swiper';
+
+@import 'components/products-slider';
+@import 'components/products-new';
 @import 'components/footer';
