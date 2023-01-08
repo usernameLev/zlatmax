@@ -8,3 +8,5 @@
 //= components/parallax-mouse.js
 //= components/scroll.js
 //= components/spollers.js
+//= components/tippy.js
+//= components/rating.js

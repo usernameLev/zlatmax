@@ -1,20 +1,149 @@
 'use strict';
 
-const reviewsSwiper = document.querySelector('.swiper-reviews');
+new Swiper('.main-block__slider', {
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
 
-if (reviewsSwiper) {
-  const swiper = new Swiper('.swiper-reviews', {
-    // Optional parameters
-    autoHeight: true,
-    loop: true,
+  // Optional parameters
+  // autoHeight: true,
+  observer: true,
+  observeParents: true,
+  slidesPerView: 1,
+  spaceBetween: 150,
+  speed: 800,
+  loop: true,
 
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
+  // If we need pagination
+  pagination: {
+    el: '.controller-main-block__dots',
+    clickable: true,
+  },
+
+  on: {
+    init: function (swiper) {
+      const allSlides = document.querySelector('.fraction-controller__all');
+      const allSlidesItems = document.querySelectorAll(
+        '.main-block__slide.swiper-slide:not(.swiper-slide-duplicate)',
+      );
+
+      allSlides.innerHTML =
+        allSlidesItems.length < 10
+          ? `0${allSlidesItems.length}`
+          : allSlidesItems.length;
     },
-  });
-}
+
+    slideChange: function (swiper) {
+      const currentSlide = document.querySelector(
+        '.fraction-controller__current',
+      );
+
+      currentSlide.innerHTML =
+        swiper.realIndex + 1 < 10
+          ? `0${swiper.realIndex + 1}`
+          : swiper.realIndex + 1;
+
+      console.log(swiper);
+    },
+  },
+});
+
+new Swiper('.products-slider__slider', {
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+
+  // Optional parameters
+  // autoHeight: true,
+  observer: true,
+  watchOverflow: true,
+  observeParents: true,
+  slidesPerView: 4,
+  spaceBetween: 30,
+  speed: 800,
+  // loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.products-slider__dots',
+    clickable: true,
+    dynamicBullets: true,
+  },
+
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    },
+
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+
+    992: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+
+    1370: {
+      slidesPerView: 4,
+      spaceBetween: 30,
+    },
+  },
+
+  on: {},
+});
+
+new Swiper('.products-new__slider', {
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+
+  // Optional parameters
+  // autoHeight: true,
+  observer: true,
+  watchOverflow: true,
+  observeParents: true,
+  slidesPerView: 3,
+  spaceBetween: 30,
+  speed: 800,
+  // loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.products-new__dots',
+    clickable: true,
+    dynamicBullets: true,
+  },
+
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    },
+
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+
+    992: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+
+    1330: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+  },
+
+  on: {},
+});
 document.addEventListener('click', documentActions);
 
 const menuBlocks = document.querySelectorAll('.sub-menu-catalog__block');
@@ -44,8 +173,10 @@ function documentActions(e) {
       if (activeLink && activeLink !== targetElement) {
         activeLink.classList.remove('_sub-menu-active');
         activeBlock.classList.remove('_sub-menu-open');
+        document.documentElement.classList.remove('_sub-menu-open');
       }
 
+      document.documentElement.classList.toggle('_sub-menu-open');
       targetElement.classList.toggle('_sub-menu-active');
       subMenu.classList.toggle('_sub-menu-open');
     } else {
@@ -77,6 +208,7 @@ function documentActions(e) {
   }
 
   if (targetElement.closest('.sub-menu-catalog__back')) {
+    document.documentElement.classList.remove('_sub-menu-open');
     document.querySelector('._sub-menu-active')
       ? document
           .querySelector('._sub-menu-active')
@@ -712,6 +844,10 @@ if (iconMenu) {
 
     if (document.documentElement.classList.contains('catalog-open')) {
       document.documentElement.classList.remove('catalog-open');
+    }
+
+    if (document.documentElement.classList.contains('_sub-menu-open')) {
+      document.documentElement.classList.remove('_sub-menu-open');
     }
   });
 }
@@ -2149,3 +2285,121 @@ function dataMediaQueries(array, dataSetValue) {
 }
 
 spollers();
+// Подключение из node_modules
+// import tippy from 'tippy.js';
+
+// import tippy from 'tippy.js';
+// import '../css/style.css';
+// import 'tippy.js/dist/tippy.css'; // optional for styling
+
+tippy('[data-tippy-content]');
+
+// Подключение cтилей из src/assets/scss/
+// import '../../scss/components/tippy.scss';
+// Подключение cтилей из node_modules
+// import 'tippy.js/dist/tippy.css';
+
+// // Запускаем и добавляем в объект модулей
+// flsModules.tippy = tippy('[data-tippy-content]', {});
+function formRating() {
+  const ratings = document.querySelectorAll('.rating');
+  if (ratings.length > 0) {
+    initRatings();
+  }
+  // Основная функция
+  function initRatings() {
+    let ratingActive, ratingValue;
+    // "Бегаем" по всем рейтингам на странице
+    for (let index = 0; index < ratings.length; index++) {
+      const rating = ratings[index];
+      initRating(rating);
+    }
+    // Инициализируем конкретный рейтинг
+    function initRating(rating) {
+      initRatingVars(rating);
+
+      setRatingActiveWidth();
+
+      if (rating.classList.contains('rating_set')) {
+        setRating(rating);
+      }
+    }
+    // Инициализайция переменных
+    function initRatingVars(rating) {
+      ratingActive = rating.querySelector('.rating__active');
+      ratingValue = rating.querySelector('.rating__value');
+    }
+    // Изменяем ширину активных звезд
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+      const ratingActiveWidth = index / 0.05;
+      ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+    // Возможность указать оценку
+    function setRating(rating) {
+      const ratingItems = rating.querySelectorAll('.rating__item');
+      for (let index = 0; index < ratingItems.length; index++) {
+        const ratingItem = ratingItems[index];
+        ratingItem.addEventListener('mouseenter', function (e) {
+          // Обновление переменных
+          initRatingVars(rating);
+          // Обновление активных звезд
+          setRatingActiveWidth(ratingItem.value);
+        });
+        ratingItem.addEventListener('mouseleave', function (e) {
+          // Обновление активных звезд
+          setRatingActiveWidth();
+        });
+        ratingItem.addEventListener('click', function (e) {
+          // Обновление переменных
+          initRatingVars(rating);
+
+          if (rating.dataset.ajax) {
+            // "Отправить" на сервер
+            setRatingValue(ratingItem.value, rating);
+          } else {
+            // Отобразить указанную оцнку
+            ratingValue.innerHTML = index + 1;
+            setRatingActiveWidth();
+          }
+        });
+      }
+    }
+    async function setRatingValue(value, rating) {
+      if (!rating.classList.contains('rating_sending')) {
+        rating.classList.add('rating_sending');
+
+        // Отправика данных (value) на сервер
+        let response = await fetch('rating.json', {
+          method: 'GET',
+
+          //body: JSON.stringify({
+          //	userRating: value
+          //}),
+          //headers: {
+          //	'content-type': 'application/json'
+          //}
+        });
+        if (response.ok) {
+          const result = await response.json();
+
+          // Получаем новый рейтинг
+          const newRating = result.newRating;
+
+          // Вывод нового среднего результата
+          ratingValue.innerHTML = newRating;
+
+          // Обновление активных звезд
+          setRatingActiveWidth();
+
+          rating.classList.remove('rating_sending');
+        } else {
+          alert('Ошибка');
+
+          rating.classList.remove('rating_sending');
+        }
+      }
+    }
+  }
+}
+
+formRating();
