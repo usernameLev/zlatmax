@@ -1,8 +1,8 @@
 @use 'sass:math';
 
 .products-slider {
-  @include adaptiveValue('margin-top', 120, 30, 1);
-  @include adaptiveValue('margin-bottom', 160, 30, 1);
+  @include adaptiveValue('padding-top', 120, 40, 1);
+  @include adaptiveValue('padding-bottom', 160, 40, 1);
 
   // .products-slider__container
   &__container {

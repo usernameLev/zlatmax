@@ -17,15 +17,10 @@
   $addSize: $maxSize - $minSize;
 
   @if $type == 1 {
-    // Только, если меньше контейнера
-    #{$property}: $maxSize + px;
-
-    @media (max-width: #{$maxWidthContainer + px}) {
-      #{$property}: calc(
-        #{$minSize + px} + #{$maxSize} *
-          ((100vw - 320px) / #{$maxWidthContainer - 320})
-      );
-    }
+    // Всегда
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+    );
   } @else if $type == 2 {
     // Только, если больше контейнера
     #{$property}: $maxSize + px;
@@ -36,10 +31,15 @@
       );
     }
   } @else {
-    // Всегда
-    #{$property}: calc(
-      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
-    );
+    // Только, если меньше контейнера
+    #{$property}: $maxSize + px;
+
+    @media (max-width: #{$maxWidthContainer + px}) {
+      #{$property}: calc(
+        #{$minSize + px} + #{$maxSize} *
+          ((100vw - 320px) / #{$maxWidthContainer + 320})
+      );
+    }
   }
 }
 
