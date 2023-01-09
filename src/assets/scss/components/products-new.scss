@@ -6,6 +6,10 @@
     no-repeat;
   padding-top: rem(45);
 
+  &_no-bottom {
+    padding-bottom: 0;
+  }
+
   &::before {
     content: '';
     position: absolute;

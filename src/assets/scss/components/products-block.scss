@@ -1,0 +1,121 @@
+@use 'sass:math';
+
+.page {
+  // .page__products-block
+  &__products-block {
+  }
+}
+.products-block {
+  // .products-block__container
+  &__container {
+    display: grid;
+    gap: rem(30);
+
+    @media (min-width: $mobileSmall) {
+      grid-template-columns: repeat(auto-fit, minmax(rem(600), 1fr));
+    }
+  }
+  // .products-block__item
+  &__item {
+  }
+}
+
+.product-block {
+  position: relative;
+  min-height: rem(290);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  // .product-block__body
+  &__body {
+    position: relative;
+    z-index: 2;
+    @include adaptiveValue('padding', 30, 20, 1);
+  }
+
+  // .product-block__title
+  &__title {
+    &:not(:last-child) {
+      margin-bottom: math.div(30, 24) + em;
+    }
+  }
+
+  // .product-block__text
+  &__text {
+    font-size: rem(18);
+    line-height: math.div(27, 18);
+
+    &:not(:last-child) {
+      margin-bottom: math.div(46, 18) + em;
+    }
+
+    @media (min-width: em(710)) {
+      max-width: rem(265);
+    }
+  }
+
+  // .product-block__link-title
+  &__link-title {
+    display: inline-block;
+    font-size: rem(24);
+    line-height: math.div(34, 24);
+    font-weight: $secondaryFontWeight;
+
+    &::after {
+      content: '';
+      display: block;
+      width: rem(70);
+      height: rem(2);
+      background-color: $thirdColor;
+      margin-top: rem(15);
+      transition: width 0.8s ease 0s;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // .product-block__image
+  &__image {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    text-align: right;
+    transform: translate(0, 8%);
+
+    img {
+      max-width: 100%;
+    }
+
+    @media (min-width: em(710)) {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      right: 0;
+    }
+
+    @media (max-width: $mobileSmall) {
+      justify-content: center;
+    }
+  }
+
+  // .product-block__button
+  &__button {
+    @media (max-width: em(710)) {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.sale-products {
+  @include adaptiveValue('padding-top', 120, 40, 1);
+  @include adaptiveValue('padding-bottom', 120, 40, 1);
+
+  &_no-bottom {
+    padding-bottom: 0;
+  }
+}
