@@ -144,3 +144,35 @@ new Swiper('.products-new__slider', {
 
   on: {},
 });
+
+const thubmsSwiper = new Swiper('.thumbs-images', {
+  loop: true,
+  spaceBetween: 16,
+
+  breakpoints: {
+    320: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+
+    768: {
+      slidesPerView: 3,
+    },
+
+    992: {
+      slidesPerView: 3,
+    },
+
+    1330: {
+      slidesPerView: 4,
+    },
+  },
+});
+
+new Swiper('.images-product__slider', {
+  thumbs: {
+    swiper: thubmsSwiper,
+  },
+
+  loop: true,
+});

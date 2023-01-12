@@ -91,13 +91,19 @@ body {
 @import 'components/popup';
 @import 'components/burger';
 @import 'components/rating';
+@import 'components/range';
 
 @import 'components/header';
 @import 'components/page';
 @import 'components/main-block';
 @import 'components/catalog-cards';
+@import 'components/select';
 
 @import 'components/swiper';
+@import 'components/range';
+@import 'components/checkbox';
+@import 'components/quantity';
+@import 'components/tabs';
 
 @import 'components/products-slider';
 @import 'components/products-new';
@@ -105,4 +111,9 @@ body {
 @import 'components/sale-products';
 @import 'components/articles-module';
 @import 'components/products-block';
+
+@import 'components/page-catalog';
+
+@import 'components/page-product';
+
 @import 'components/footer';
