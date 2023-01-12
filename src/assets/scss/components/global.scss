@@ -29,6 +29,20 @@ button {
       box-shadow: 0px 4px 25px rgba(232, 170, 49, 0.63);
     }
   }
+
+  &_border {
+    color: $thirdColor;
+    background-color: #ffffff;
+    border: 1px solid $thirdColor;
+    box-shadow: none;
+  }
+
+  &_black {
+    color: #ffffff;
+    background-color: #000000;
+    box-shadow: none;
+    padding: rem(8) rem(30);
+  }
 }
 
 .dots {
@@ -84,5 +98,16 @@ button {
         left: rem(30);
       }
     }
+  }
+}
+
+// Catalog
+.title {
+  font-size: rem(24);
+  line-height: math.div(29, 24);
+  font-weight: $thirdFontWeight;
+
+  &:not(:last-child) {
+    margin-bottom: math.div(25, 24) + em;
   }
 }

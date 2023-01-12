@@ -10,3 +10,8 @@
 //= components/spollers.js
 //= components/tippy.js
 //= components/rating.js
+//= components/select.js
+//= components/nouislider.js
+//= components/range.js
+//= components/quantity.js
+//= components/tabs.js
