@@ -1,4 +1,4 @@
-# Интернет магазин zlatmax
+# Интернет магазин Zlatmax
 HTML, CSS, JS, Middle
 
 <a href="https://master--jolly-tiramisu-050440.netlify.app/" target="_blank">Show this site</a>
